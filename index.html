@@ -8,12 +8,117 @@
             p{
                 color:gray;
             }
+            
+        @keyframes circlerotate {
+            0% {transform: rotate(0deg)}
+            100% {transform: rotate(360deg)}
+        }
+        .circle {
+            position: static;
+            width: 500px;
+            border-radius: 50%;
+            height: 500px;
+            background-color: gray;
+            animation-duration: 4s;
+            animation-name: circlerotate;
+            transform: rotate(0deg);
+            background: conic-gradient(red 10%, orange 10%, orange 20%, yellow 20%, yellow 30%, purple 30%, purple 40%
+            , blue 40%, blue 50%, pink 50%, pink 60%, cyan 60%, cyan 70%, brown 70%, brown 80%, green 80%, green 90%, gray 90%, gray 100%);
+        }
+        .text{
+            position: relative;
+            font-size: xx-large;
+            text-transform: uppercase;
+            font-weight: 700;
+            left: 75px;
+            rotate: 108deg;
+        }
+        .line{
+            position: absolute;
+            width: 2px;
+            height: 500px;
+            background-color: yellow;
+            outline-width: 1px;
+            left:50%;
+            transform: rotate(0deg);            
+        }
+        .line1{
+            position: absolute;
+            width: 2px;
+            height: 500px;
+            background-color: yellow;
+            outline-width: 1px;
+            left:50%;
+            transform: rotate(72deg);     
+        }
+        .line2{
+            position: absolute;
+            width: 2px;
+            height: 500px;
+            background-color: yellow;
+            outline-width: 1px;
+            left:50%;
+            transform: rotate(144deg);     
+        }
+        .line3{
+            position: absolute;
+            width: 2px;
+            height: 500px;
+            background-color: yellow;
+            outline-width: 1px;
+            left:50%;
+            transform: rotate(216deg);     
+        }
+        .line4{
+            position: absolute;
+            width: 2px;
+            height: 500px;
+            background-color: yellow;
+            outline-width: 1px;
+            left:50%;
+            transform: rotate(288deg);     
+        }
+        .selector{
+            width: 0;
+            height: 0;
+            background-color: black;
+            position: absolute;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            
+            border-bottom: 5px solid black;
+        }
+        /*.piece{
+            height: 250px;
+            background-color: red;
+            width: 10px;
+            left: 50%;
+            position: absolute;
+        }*/
         </style>
     </head>
     <body>
         <h1>Github IO Page Prototype</h1>
         <p>Testing the host connection...</p>
         <p>Testing the browser connection...</p>
-        <p>Does the cache workkkk ?</p>
+        <p>Does the cache work ?</p>
+        <div class = "circle"> 
+        <div class="selector"></div>
+        <div class = "line">
+            <div class = "text">Testing</div>
+        </div>
+        <div class = "line1">
+
+        </div>
+        <div class = "line2">
+
+        </div>
+        <div class = "line3">
+
+        </div>
+        <div class = "line4">
+
+        </div>
+    </div>
     </body>
 </html>
