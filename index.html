@@ -1,92 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv='cache-control' content='no-cache'> 
-        <meta http-equiv='expires' content='0'> 
-        <meta http-equiv='pragma' content='no-cache'>
-        <style>
-            p{
-                color:gray;
-            }
-            
+<head>
+    <style>
+        :root {
+            --rotateamount: 0deg;
+        }
         @keyframes circlerotate {
             0% {transform: rotate(0deg)}
-            100% {transform: rotate(360deg)}
+            100% {transform: rotate(var(--rotateamount))}
+        }
+        .animate{
+            animation-duration: 8s;
+            animation-name: circlerotate;
+            animation-fill-mode: forwards;
         }
         .circle {
             position: static;
             width: 500px;
-            border-radius: 50%;
+            border-radius: 75%;
             height: 500px;
             background-color: gray;
-            animation-duration: 4s;
-            animation-name: circlerotate;
+            /*animation-duration: 4s;
+            animation-name: circlerotate;*/
             transform: rotate(0deg);
             background: conic-gradient(red 10%, orange 10%, orange 20%, yellow 20%, yellow 30%, purple 30%, purple 40%
             , blue 40%, blue 50%, pink 50%, pink 60%, cyan 60%, cyan 70%, brown 70%, brown 80%, green 80%, green 90%, gray 90%, gray 100%);
         }
         .text{
             position: relative;
-            font-size: xx-large;
-            text-transform: uppercase;
+            font-size: x-large;
+            /*text-transform: uppercase;*/
             font-weight: 700;
-            left: 75px;
-            rotate: 108deg;
+            left: 30px;
+            rotate: -72deg;
+            top: 60%;
+            text-wrap: nowrap;
         }
         .line{
             position: absolute;
-            width: 2px;
-            height: 500px;
-            background-color: yellow;
+            width: 4px;
+            height: 250px;
             outline-width: 1px;
             left:50%;
-            transform: rotate(0deg);            
+            transform-origin: 100% 100%;
         }
-        .line1{
-            position: absolute;
-            width: 2px;
-            height: 500px;
-            background-color: yellow;
-            outline-width: 1px;
-            left:50%;
-            transform: rotate(72deg);     
+        .rotate{
+            transform: rotate(0deg);  
         }
-        .line2{
-            position: absolute;
-            width: 2px;
-            height: 500px;
-            background-color: yellow;
-            outline-width: 1px;
-            left:50%;
-            transform: rotate(144deg);     
+        .rotate1{
+            transform: rotate(36deg);  
         }
-        .line3{
-            position: absolute;
-            width: 2px;
-            height: 500px;
-            background-color: yellow;
-            outline-width: 1px;
-            left:50%;
-            transform: rotate(216deg);     
+        .rotate2{
+            transform: rotate(72deg);  
         }
-        .line4{
-            position: absolute;
-            width: 2px;
-            height: 500px;
-            background-color: yellow;
-            outline-width: 1px;
-            left:50%;
-            transform: rotate(288deg);     
+        .rotate3{
+            transform: rotate(108deg);  
+        }
+        .rotate4{
+            transform: rotate(144deg);  
+        }
+        .rotate5{
+            transform: rotate(180deg);  
+        }
+        .rotate6{
+            transform: rotate(216deg);  
+        }
+        .rotate7{
+            transform: rotate(252deg);  
+        }
+        .rotate8{
+            transform: rotate(288deg);  
+        }
+        .rotate9{
+            transform: rotate(324deg);  
         }
         .selector{
-            width: 0;
-            height: 0;
-            background-color: black;
+            width: 0; 
+            height: 0; 
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
             position: absolute;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            
-            border-bottom: 5px solid black;
+            left: 238.2px;
+            z-index: 2;
+            border-top: 20px solid black;
+        }
+        .btnFelek{
+            padding: 15px 25px;
+            position: static;
+            font-size: 24px;
+            text-align: center;
+            cursor: pointer;
+            outline: none;
+            color: white;
+            background-color: #04AA6D;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #999;
+            margin-top: 20px;
+            margin-left: 150px;
+        }
+        .btnFelek:active{
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        body{
+            background-color:cornflowerblue;
         }
         /*.piece{
             height: 250px;
@@ -95,30 +114,76 @@
             left: 50%;
             position: absolute;
         }*/
-        </style>
-    </head>
-    <body>
-        <h1>Github IO Page Prototype</h1>
-        <p>Testing the host connection...</p>
-        <p>Testing the browser connection...</p>
-        <p>Does the cache work ?</p>
-        <div class = "circle">
-            <div class="selector"></div>
-            <div class = "line">
-                <div class = "text">Testing</div>
-            </div>
-            <div class = "line1">
-                
-            </div>
-            <div class = "line2">
-    
-            </div>
-            <div class = "line3">
-    
-            </div>
-            <div class = "line4">
-    
-            </div>
+    </style>
+    <script>
+        setTimeout(function(){
+
+            var button = document.getElementById("btnObject");
+            document.getElementById("circleAnimation").onanimationend = function(){
+                //this.classList.remove('animate');
+            }
+            var root = document.querySelector(':root');
+            button.addEventListener('click', function() { 
+                var rotateAmount = Math.floor(Math.random() * 1000 + 1800) + 'deg';
+                root.style.setProperty('--rotateamount', rotateAmount);
+                document.getElementById("circleAnimation").classList.remove('animate');
+                setTimeout(function(){
+                    document.getElementById("circleAnimation").classList.add('animate');
+                },100);             
+            });
+
+            /*
+
+                [].forEach.call(document.querySelectorAll(".line"), function(line){
+                    var rect = line.getBoundingClientRect();
+
+                        if(rect.bottom > rectSelection.top+8 
+                        && rect.right > rectSelection.left - 20 
+                        && rect.top < rectSelection.bottom 
+                        && rect.left < rectSelection.right - 20) {
+                            alert(line.innerText);
+                        }
+                });
+
+            */
+
+        },1000);
+    </script>
+</head>
+<body>
+    <div class="selector"></div>
+    <div class = "circle" id="circleAnimation"> 
+        <div class = "line rotate">
+            <div class = "text">Ömer</div>
         </div>
-    </body>
+        <div class = "line rotate1">
+            <div class = "text">Ertuğrul</div>
+        </div>
+        <div class = "line rotate2">
+            <div class = "text">Hakan</div>
+        </div>
+        <div class = "line rotate3">
+            <div class = "text">Enes</div>
+        </div>
+        <div class = "line rotate4">
+            <div class = "text">Mustafa</div>
+        </div>
+        <div class = "line rotate5">
+            <div class = "text">Bora</div>
+        </div>
+        <div class = "line rotate6">
+            <div class = "text">El Turco</div>
+        </div>
+        <div class = "line rotate7">
+            <div class = "text">Mehmet</div>
+        </div>
+        <div class = "line rotate8">
+            <div class = "text">Pubg 4cü Adam</div>
+        </div>
+        <div class = "line rotate9">
+            <div class = "text">Hakan</div>
+        </div>
+    </div>
+    <button class="btnFelek" id="btnObject">Döndür Feleği</button>
+</body>
 </html>
