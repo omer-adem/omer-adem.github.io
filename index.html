@@ -245,6 +245,15 @@
     </div>
 </div>
 <script>
+    function hasTouchSupport() {
+        return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    }
+
+    if (hasTouchSupport()) {
+        
+    } else {
+        window.location.href = "brickgamedesktop.html";
+    }
     let canvas = document.getElementById("myCanvas");
     let ctx = canvas.getContext("2d");
     let x = canvas.width/2;
