@@ -740,64 +740,15 @@
     var lastFrame = 0.0;
     var deltaFrame = 0.0;
 
-    var fps = 60;
+    var fps = 90;
 
-    const msPerFrame = 1000 / fps
+    const msPerFrame = 1000 / fps;
 
-    function draw(elapsedTime) {
-        //frameCount++;
-        if (paused || gameover || gamewon)
-        {
-            requestAnimationFrame(draw);
-            return;
-        }
-
-        deltaFrame += (elapsedTime - lastFrame);
-        
-        if (Number.isNaN(deltaFrame))
-            deltaFrame = 0.0;
-
-        if (deltaFrame >= msPerFrame)
-        {
-            deltaFrame = 0.0;
-        }
-        else{
-            requestAnimationFrame(draw);
-            return;
-        }
-
-        const excessTime = deltaFrame % msPerFrame
-        lastFrame = elapsedTime - excessTime;
-        
-        // Always draw background, but skip some expensive effects occasionally
-        //if (frameCount % 2 === 0) {
-        drawBackground();
-        //} else {
-            // Simplified background without stars/particles every other frame
-        //    ctx.fillStyle = backgroundGradient;
-        //    ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //    ctx.fillStyle = vignetteGradient;
-        //    ctx.fillRect(0, 0, canvas.width, canvas.height);
-        //}
-        
-        drawBall();
-        drawBricks();
-        drawPaddle();
-        drawScore();
-        
-        if (gamestart || levelStart)
-        {
-            requestAnimationFrame(draw);
-            return;
-        }
+    function update()
+    {
         x += dx;
         y += dy;
-        
-        // Update animations less frequently
-        if (frameCount % 2 === 0) {
-            updateStars();
-        }
-        updateParticles();
+
         collisionDetect();
         if((x+ballRadius >= canvas.width && dx>=0) || (x-ballRadius <= 0 && dx<=0)) {
             dx *= -1;
@@ -833,6 +784,58 @@
                 paddleX = 1;
             }
         }
+    }
+
+    function draw(elapsedTime) {
+        //frameCount++;
+        if (paused || gameover || gamewon)
+        {
+            requestAnimationFrame(draw);
+            return;
+        }
+
+        deltaFrame += (elapsedTime - lastFrame);
+        
+        if (Number.isNaN(deltaFrame))
+            deltaFrame = 0.0;
+
+        if (deltaFrame >= msPerFrame)
+        {
+            deltaFrame = 0.0;
+        }
+        else{
+            if (!gamestart && !levelStart)
+                update();
+            requestAnimationFrame(draw);
+            return;
+        }
+
+        const excessTime = deltaFrame % msPerFrame
+        lastFrame = elapsedTime - excessTime;
+        
+        // Always draw background, but skip some expensive effects occasionally
+        //if (frameCount % 2 === 0) {
+        drawBackground();
+        //} else {
+            // Simplified background without stars/particles every other frame
+        //    ctx.fillStyle = backgroundGradient;
+        //    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //    ctx.fillStyle = vignetteGradient;
+        //    ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //}
+        
+        drawBall();
+        drawBricks();
+        drawPaddle();
+        drawScore();
+        if (gamestart || levelStart)
+        {
+            requestAnimationFrame(draw);
+            return;
+        }
+        updateStars();
+        updateParticles();
+        update();
         requestAnimationFrame(draw);
     }
     draw();
