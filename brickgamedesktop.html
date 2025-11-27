@@ -740,7 +740,7 @@
     var lastFrame = 0.0;
     var deltaFrame = 0.0;
 
-    var fps = 60;
+    var fps = 90;
 
     const msPerFrame = 1000 / fps;
 
@@ -804,8 +804,8 @@
             deltaFrame = 0.0;
         }
         else{
-            if (!gamestart && !levelStart)
-                update();
+            //if (!gamestart && !levelStart)
+                //update();
             requestAnimationFrame(draw);
             return;
         }
